@@ -8,7 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class DataProvider {
+public final class DataProvider {
+    private DataProvider(){}
 
     private static final List<String> titles = Arrays.asList(
             "Dokończ Raport",
