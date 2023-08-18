@@ -17,7 +17,7 @@ public class TaskViewModel extends AndroidViewModel {
 
     private final TaskRepository repository;
 
-    private final LiveData<List<Task>> tasksState;
+    public final LiveData<List<Task>> tasksState;
 
     public TaskViewModel(Application application) {
         super(application);
@@ -87,7 +87,8 @@ public class TaskViewModel extends AndroidViewModel {
             default:
                 nextPriority = Priority.WYKONANY;
         }
-        updateTask(new Task(task.getTitle(), task.getDescription(), task.isDone(), nextPriority));
+        task.setPriority(nextPriority);
+        updateTask(task);
     }
 
     public void decreasePriority(Task task) {
@@ -103,10 +104,12 @@ public class TaskViewModel extends AndroidViewModel {
             default:
                 nextPriority = Priority.WYKONANY;
         }
-        updateTask(new Task(task.getTitle(), task.getDescription(), task.isDone(), nextPriority ));
+        task.setPriority(nextPriority);
+        updateTask(task);
     }
 
     public void donePriority(Task task) {
-        updateTask(new Task(task.getTitle(), task.getDescription(), task.isDone(), Priority.WYKONANY));
-    }
+        task.setDone(true);
+        task.setPriority(Priority.WYKONANY);
+        updateTask(task);    }
 }

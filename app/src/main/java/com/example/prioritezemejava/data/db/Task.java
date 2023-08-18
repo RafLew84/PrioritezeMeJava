@@ -1,7 +1,10 @@
 package com.example.prioritezemejava.data.db;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import java.util.Objects;
 
 @Entity(tableName = "task_table")
 public class Task {
@@ -12,6 +15,7 @@ public class Task {
     private boolean isDone;
     private Priority priority;
 
+    @Ignore
     public Task(String title, String description) {
         this.title = title;
         this.description = description;
@@ -26,6 +30,7 @@ public class Task {
         this.priority = priority;
     }
 
+    @Ignore
     public Task(String title, String description, Priority priority) {
         this.title = title;
         this.description = description;
@@ -71,5 +76,22 @@ public class Task {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, isDone, priority);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return id == task.id &&
+                isDone == task.isDone &&
+                title.equals(task.title) &&
+                description.equals(task.description) &&
+                priority == task.priority;
     }
 }
